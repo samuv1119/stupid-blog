@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>墨言 | 简约技术博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border: #dee2e6;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 顶部信息栏 - 修改为博客标题栏 */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .site-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .site-description {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            margin-top: 0.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 主体布局 */
+        .container {
+            display: flex;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* 侧边栏 - 修改为博客信息栏 */
+        .sidebar {
+            width: 280px;
+            background: white;
+            padding: 2rem 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-title {
+            padding: 0 1.5rem 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0 1.5rem;
+        }
+
+        .nav-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link i {
+            width: 24px;
+            margin-right: 12px;
+            color: var(--gray);
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .nav-link:hover i {
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-link.active i {
+            color: var(--primary);
+        }
+
+        /* 博主信息卡片 */
+        .author-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .author-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .author-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .author-bio {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* 主内容区 - 修改为文章列表 */
+        .main-content {
+            flex: 1;
+            padding: 2.5rem;
+            background-color: var(--light);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .content-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .content-description {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* 文章列表样式 */
+        .articles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .article-image {
+            height: 180px;
+            background: linear-gradient(45deg, #4361ee, #4cc9f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.8rem;
+        }
+
+        .article-date, .article-category {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .article-title a:hover {
+            color: var(--primary);
+        }
+
+        .article-excerpt {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .article-tag {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        /* 底部版权区 */
+        .footer {
+            background: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            color: var(--gray);
+            border-top: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .copyright {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 1.5rem 0;
+            }
+
+            .sidebar-content {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.5rem;
+            }
+
+            .author-card, .nav-menu {
+                flex: 1;
+                min-width: 300px;
+            }
+
+            .nav-menu {
+                padding: 0 1.5rem;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .articles-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 1.2rem;
+            }
+
+            .site-title {
+                font-size: 1.8rem;
+            }
+
+            .site-description {
+                font-size: 1rem;
+            }
+
+            .articles-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部标题栏 -->
+    <header class="header">
+        <div class="site-title">墨言</div>
+        <div class="site-description">探索技术之美，分享编程之道</div>
+    </header>
+
+    <!-- 主体布局 -->
+    <div class="container">
+        <!-- 侧边栏 - 博客信息区 -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <!-- 博主信息 -->
+                <div class="author-card">
+                    <div class="author-avatar">墨</div>
+                    <h3 class="author-name">墨言</h3>
+                    <p class="author-bio">全栈开发者 & 技术博主，专注于Web技术、JavaScript生态和用户体验设计</p>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- 导航菜单 -->
+                <div class="nav-menu-container">
+                    <div class="sidebar-title">博客分类</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="fas fa-laptop-code"></i>
+                                <span>前端开发</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-server"></i>
+                                <span>后端技术</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>移动开发</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-database"></i>
+                                <span>数据库</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-cloud"></i>
+                                <span>云计算</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-code"></i>
+                                <span>编程语言</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>技术思考</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 - 文章列表 -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 class="content-title">最新文章</h1>
+                <p class="content-description">探索最新的技术见解与教程</p>
+            </div>
+
+            <div class="articles-container">
+                <!-- 文章卡片 1 -->
+                <div class="article-card">
+                    <div class="article-image">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date"><i class="far fa-calendar"></i> 2023-10-15</span>
+                            <span class="article-category"><i class="far fa-folder"></i> 前端开发</span>
+                        </div>
+                        <h3 class="article-title"><a href="#">React 18新特性深度解析与实战应用</a></h3>
+                        <p class="article-excerpt">探索React 18带来的并发渲染、自动批处理等新特性，了解如何在实际项目中应用这些改进提升用户体验。</p>
+                        <div class="article-tags">
+                            <span class="article-tag">React</span>
+                            <span class="article-tag">JavaScript</span>
+                            <span class="article-tag">前端框架</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文章卡片 2 -->
+                <div class="article-card">
+                    <div class="article-image">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date"><i class="far fa-calendar"></i> 2023-10-08</span>
+                            <span class="article-category"><i class="far fa-folder"></i> 后端技术</span>
+                        </div>
+                        <h3 class="article-title"><a href="#">高性能API设计：从REST到GraphQL的演变</a></h3>
+                        <p class="article-excerpt">对比REST和GraphQL的设计哲学，探讨在复杂业务场景下如何选择合适的技术方案，并分享性能优化实践。</p>
+                        <div class="article-tags">
+                            <span class="article-tag">API设计</span>
+                            <span class="article-tag">GraphQL</span>
+                            <span class="article-tag">性能优化</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文章卡片 3 -->
+                <div class="article-card">
+                    <div class="article-image">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date"><i class="far fa-calendar"></i> 2023-10-01</span>
+                            <span class="article-category"><i class="far fa-folder"></i> 技术思考</span>
+                        </div>
+                        <h3 class="article-title"><a href="#">现代Web应用的安全防护策略</a></h3>
+                        <p class="article-excerpt">从XSS、CSRF到JWT安全，全面解析Web应用常见安全威胁及防护方案，帮助开发者构建更安全的应用程序。</p>
+                        <div class="article-tags">
+                            <span class="article-tag">Web安全</span>
+                            <span class="article-tag">最佳实践</span>
+                            <span class="article-tag">开发安全</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文章卡片 4 -->
+                <div class="article-card">
+                    <div class="article-image">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date"><i class="far fa-calendar"></i> 2023-09-25</span>
+                            <span class="article-category"><i class="far fa-folder"></i> 编程语言</span>
+                        </div>
+                        <h3 class="article-title"><a href="#">Python异步编程完全指南：从asyncio到FastAPI</a></h3>
+                        <p class="article-excerpt">深入Python异步编程模型，探索asyncio核心原理，并展示如何在FastAPI中构建高性能Web服务。</p>
+                        <div class="article-tags">
+                            <span class="article-tag">Python</span>
+                            <span class="article-tag">异步编程</span>
+                            <span class="article-tag">FastAPI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 底部版权区 -->
+    <footer class="footer">
+        <div class="copyright">© 2023 墨言技术博客 - 分享知识，创造价值</div>
+        <div class="footer-links">
+            <a href="#" class="footer-link">关于本站</a>
+            <a href="#" class="footer-link">投稿指南</a>
+            <a href="#" class="footer-link">友情链接</a>
+            <a href="#" class="footer-link">联系方式</a>
+        </div>
+    </footer>
+
+    <script>
+        // 为导航菜单添加交互效果
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 移除所有active类
+                document.querySelectorAll('.nav-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // 为当前点击项添加active类
+                this.classList.add('active');
+
+                // 更新内容区标题
+                const contentTitle = document.querySelector('.content-title');
+                const navText = this.querySelector('span').textContent;
+                contentTitle.textContent = navText;
+
+                // 阻止默认链接行为
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
