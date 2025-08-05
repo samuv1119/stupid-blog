@@ -1,0 +1,43 @@
+{% extends "base-ds-4.html" %}
+
+{% block extend_css %}
+    <link rel="stylesheet" type="text/css" href="static/status.css">
+{% endblock %}
+
+{% block main_content %}
+    <div class="profile-container">
+
+        <!-- 当前状态区域 - 使用与历史条目相同的样式 -->
+        <div class="current-status">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">{{ present.start_time_str }} - {{ present.end_time_str }}</div>
+                    <div class="timeline-content">
+                        <div class="status-header">
+                            <span class="username">samuv</span>
+                            <span class="status-label">当前状态:</span>
+                            <span class="history-status">{{ present.status }}</span>
+                        </div>
+                        <div class="history-description">{{ present.description }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <h3 class="history-title">历史状态记录</h3>
+            <div class="timeline">
+                <!-- 状态条目 -->
+                {% for item in history %}
+                <div class="timeline-item">
+                    <div class="timeline-date">{{ item.start_time_str }} - {{ item.end_time_str }}</div>
+                    <div class="timeline-content">
+                        <div class="history-status">{{ item.status }}</div>
+                        <div class="history-description">{{ item.description }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

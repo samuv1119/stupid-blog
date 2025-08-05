@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="static/base.css">
+    {% block extend_css %}
+    {% endblock %}
+</head>
+<body>
+    <!-- 顶部标题栏 -->
+    <header class="header">
+        <div class="site-title">samuv的个人主页</div>
+        <div class="site-description">理论上这里应该有一段介绍,但是显然我不知道该写什么,可能会被替换成个人签名</div>
+    </header>
+
+    <!-- 主体布局 -->
+    <div class="container">
+        <!-- 侧边栏 - 博客信息区 -->
+        <aside class="sidebar">
+            <div class="sidebar-title">页面导航</div>
+            <ul class="nav-menu">
+                <!-- 分类将由Flask动态填充 -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>samuv当前状态</span>
+                    </a>
+                </li>
+                <!-- 更多分类... -->
+            </ul>
+        </aside>
+
+        <!-- 主内容区 - 文章列表 -->
+        <main class="main-content">
+            {% block main_content %}
+            {% endblock %}
+        </main>
+    </div>
+
+    <!-- 底部版权区 -->
+    <footer class="footer">
+        <div class="copyright">© 2025 samuv未公开站点 - 分享知识，创造价值</div>
+        <div class="footer-links">
+            <a href="#" class="footer-link">占位符</a>
+        </div>
+    </footer>
+
+    <script>
+    </script>
+</body>
+</html>

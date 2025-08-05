@@ -1,0 +1,118 @@
+/* 个人简介容器样式 - 左对齐 */
+.profile-container {
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+
+
+.status-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.username {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.status-label {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+
+
+/**/
+
+/* 历史状态区域 */
+.history-section {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.history-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+    color: #333;
+}
+
+/* 时间线布局 */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: #e0e0e0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #4a90e2;
+    z-index: 1;
+}
+
+.timeline-date {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+.timeline-content {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.history-status {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.history-description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/*!* 当前状态特殊样式 *!*/
+/*.current-status .timeline-item {*/
+/*    margin-bottom: 2.5rem;*/
+/*    padding-left: 0; !* 移除左侧留白 *!*/
+/*}*/
+
+.current-status .timeline-item::before {
+    background: #ff6b6b; /* 使用不同颜色标记当前状态 */
+    width: 1.2rem;
+    height: 1.2rem;
+    top: 0.4rem;
+}
