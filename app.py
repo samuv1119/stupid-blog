@@ -26,8 +26,9 @@ def hello_world():
 
 # @app.route('/test')
 # def test():
-#     item=status_data.create_status("test"+str(int(time.time()%100)),"des"+str(int(time.time()%1000)))
-#     status_data.append_status(item)
+#     for i in range(50):
+#         item=status_data.create_status("test"+str(int(time.time()%100)),"des"+str(int(i)))
+#         status_data.append_status(item)
 #     return f"item append success"
 
 
@@ -55,10 +56,11 @@ def api_status_set():
 
 @app.route("/index")
 def index():
+    status_data.remove_old_status()
     present_status = status_data.get_present_status()
     history_status = status_data.get_history_status()
     return render_template("status-ds-4.html",present=present_status,history=history_status)
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
