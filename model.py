@@ -90,7 +90,8 @@ class StatusDataMgr:
 
     def remove_old_status(self):
         """
-        删除超过长度的状态字典,保证页面只渲染有限的内容
+        删除超过长度的状态字典,来保证页面只渲染有限的内容
+        ...其实应该用动态加载,但是我暂时并不会写
         :return:
         """
         if len(self.status_table.all()) > self.max_status_num:
@@ -99,16 +100,78 @@ class StatusDataMgr:
 class PostDataMgr:
     def __init__(self):
         self.post_table = db.table("post_history")
-        self.backup_table = db.table("post_history")
+        self.backup_table = backup_db.table("post_history")
         self.query = Query()
 
     def __len__(self):
         return len(self.post_table)
 
-    def create_post(self, post_info:str, post_tag:str):
+    def create_post(self, post_content:str, post_tag:str):
         """
         创建一个感想字典
-        :param post_info: 感想内容,可能为多行文本
+        :param post_content: 感想内容,可能为多行文本
         :param post_tag: 感想标签,为简短介绍
+        :return:包含时间,内容和标签的感想字典(dict)
+        """
+        now = time.time()
+        post_data = {"time": now, "post_content": post_content, "post_tag": post_tag}
+        st = datetime.fromtimestamp(now).strftime("%y-%m-%d %H:%M")
+        post_data["time_str"] = st
+        post_data["index"] = self.get_max_index() + 1
+        return post_data
+
+    def get_max_index(self):
+        """
+        遍历全表找到最新的索引值
         :return:
         """
+        docs = self.post_table.all()
+        mx = 0
+        for doc in docs:
+            mx = max(mx, doc["index"])
+        return mx
+
+    def append_post(self, post: dict):
+        """
+        插入一个最新感想字典
+        :param post: 要插入的感想字典
+        :return:
+        """
+        self.backup_table.insert(post)
+        self.post_table.insert(post)
+
+    def get_all_post(self):
+        return self.post_table.all()
+
+class SignDataMgr:
+    def __init__(self):
+        self.sign_table = db.table("sign_history")
+        self.backup_table = backup_db.table("sign_history")
+        self.query = Query()
+
+    def __len__(self):
+        return len(self.sign_table)
+
+    def update_sign(self, sign_content:str):
+        post_data = {"time": time.time(), "content": sign_content,"index": self.get_max_index()+1}
+        self.sign_table.insert(post_data)
+        self.backup_table.insert(post_data)
+
+    def get_max_index(self):
+        """
+        遍历全表找到最新的索引值
+        :return:
+        """
+        docs = self.sign_table.all()
+        mx = 0
+        for doc in docs:
+            mx = max(mx, doc["index"])
+        return mx
+
+    def get_present_sign(self):
+        """
+        获取当前状态对应的状态字典
+        """
+        return self.sign_table.get(self.query.index == self.get_max_index())
+
+

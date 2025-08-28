@@ -4,19 +4,22 @@
     <link rel="stylesheet" type="text/css" href="static/post.css">
 {% endblock %}
 
+{% block post_active %}active{% endblock %}
+
 {% block main_content %}
     <div class="dynamic-container">
-        <!-- 动态头部信息 -->
-        <div class="dynamic-header">
-            <div class="publish-date">2023年11月15日 14:30</div>
-            <div class="dynamic-category">生活随笔</div>
-        </div>
-
-        <!-- 动态内容 -->
-        <div class="dynamic-content">
-            <p>今天阳光正好，在公园散步时偶遇一只可爱的橘猫。它一点也不怕生，悠闲地晒太阳，偶尔抬头看看过往的行人。</p>
-
-            <p>这样的小确幸让平凡的一天变得特别。有时候，我们需要放慢脚步，才能发现生活中这些美好的瞬间。</p>
-        </div>
+        {% for item in post %}
+            <div class="dynamic-box">
+                <!-- 动态头部信息 -->
+                <div class="dynamic-header">
+                    <div class="publish-date">{{ item.time_str }}</div>
+                    <div class="dynamic-category">{{item.post_tag}}</div>
+                </div>
+                <!-- 动态内容 -->
+                <div class="dynamic-content">
+                    {{ item.post_content }}
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
